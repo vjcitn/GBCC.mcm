@@ -1,0 +1,21 @@
+Package: GBCC.mcm
+Title: MCMICRO analysis examples for GBCC 2025
+Version: 0.0.1
+Authors@R:
+    person(given = "Vince",
+           family = "Carey",
+           role = c("aut", "cre"),
+           email = "stvjc@channing.harvard.edu",
+           comment = c(ORCID = "0000-0003-4046-0063"))
+Description: Use Bioconductor spatial omics methods with MCMICRO experients
+Depends: R (>= 4.3), tools, utils
+Suggests: knitr, BiocStyle, testthat, rmarkdown
+Imports: SpatialFeatureExperiment, Voyager, SpatialExperiment, zellkonverter,
+	SummarizedExperiment
+License: Artistic-2.0
+VignetteBuilder: knitr
+biocViews: Infrastructure
+Encoding: UTF-8
+URL: https://github.com/vjcitn/GBCC.mcm
+BugReports: https://github.com/vjcitn/GBCC.mcm/issues
+RoxygenNote: 7.3.2
