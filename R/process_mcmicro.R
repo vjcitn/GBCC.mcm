@@ -1,3 +1,23 @@
+#' create a default configuration for several runUnivariate tasks
+#' @param assay4quants character(1) name of the assay component of SFE on which runUnivariate is used
+#' @param colGraphName character(1) name of the colGraph in the SFE
+#' @param BPPARAM a BiocParallel *Param object
+#' @note Any values supplied to dots must be present for all components for all
+#' desired runUnivariate calls.  
+#' @return A closure.  The intent is that the value is passed a vector of
+#' feature names.  The resulting list has named elements.  The name of
+#' each element is the 'type' of univariate statistical analysis, and the
+#' elements of the associated element are arguments to runUnivariate used with that
+#' analysis type.
+#' @export
+default_uruns = function(assay4quants="X", colGraphName="spatNeigh",
+    BPPARAM=BiocParallel::bpparam()) function(features, ...) {
+  list(moran.plot=list( features=features, exprs_values=assay4quants, include_self=TRUE,
+        BPPARAM=BPPARAM, ...),
+       localG=list(features=features, exprs_values=assay4quants, 
+                colGraphName=colGraphName, include_self=TRUE, BPPARAM=BPPARAM, ...))
+}
+
 #' Use Voyager spatial statistics support with MCMICRO proteomics experiments
 #' @import zellkonverter
 #' @import SpatialFeatureExperiment
@@ -14,6 +34,7 @@
 #' spneigh_parms setting is `list(method='knearneigh', k=4)`.
 #' @examples
 #' pa = get_mcm_path("m53.1")
+#' # by default, moran.plot and localG type univariate analyses are conducted
 #' mcm53.1 = process_mcmicro(pa)
 #' features_use = c("NCAM", "FOXP3", "CD8A", "LDH")
 #' Voyager::plotLocalResult(mcm53.1, "localG", features = features_use,
@@ -25,7 +46,7 @@
 #'                 colGeometryName = "centroids", divergent = TRUE,
 #'                 diverge_center = 0)
 #' @export
-process_mcmicro = function(h5ad,
+process_mcmicro = function(h5ad, uconfig=default_uruns(),
      coordnames = c("X_centroid", "Y_centroid"), spneigh_parms=list(), assay4quants="X", verbose=TRUE,
      ...) {
   sce = zellkonverter::readH5AD(h5ad)
@@ -39,11 +60,12 @@ process_mcmicro = function(h5ad,
   fsnargs = list(x=sfe)
   g1 = do.call(findSpatialNeighbors, c(fsnargs, spneigh_parms))
   colGraph(sfe, "spatNeigh") = g1 
-  if (verbose) message("runUnivariate moran.plot")
-  sfe = runUnivariate(sfe, type="moran.plot", features=allfeat, 
-         exprs_values=assay4quants, include_self=TRUE)
-  if (verbose) message("run localG")
-  sfe <- runUnivariate(sfe, type = "localG", features = allfeat, exprs_values="X",
-                     colGraphName = "spatNeigh", include_self = TRUE)
+  uconf = uconfig(rownames(spe))
+  for (i in names(uconf)) uconf[[i]]$type = i
+  for (i in names(uconf)) {
+        if (verbose) message(sprintf("runUnivariate %s", i))
+        setup = unlist(list(x = sfe, uconf[[i]]), recursive = FALSE)
+        sfe = do.call("runUnivariate", setup)
+  }
   sfe
 }

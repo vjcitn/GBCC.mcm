@@ -6,6 +6,7 @@
 \usage{
 process_mcmicro(
   h5ad,
+  uconfig = default_uruns(),
   coordnames = c("X_centroid", "Y_centroid"),
   spneigh_parms = list(),
   assay4quants = "X",
