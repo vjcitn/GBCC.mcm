@@ -2,13 +2,19 @@
 #' @param assay4quants character(1) name of the assay component of SFE on which runUnivariate is used
 #' @param colGraphName character(1) name of the colGraph in the SFE
 #' @param BPPARAM a BiocParallel *Param object
-#' @note Any values supplied to dots must be present for all components for all
+#' @note Any values supplied to dots in the returned closure must be present for all components for all
 #' desired runUnivariate calls.  
 #' @return A closure.  The intent is that the value is passed a vector of
 #' feature names.  The resulting list has named elements.  The name of
 #' each element is the 'type' of univariate statistical analysis, and the
 #' elements of the associated element are arguments to runUnivariate used with that
 #' analysis type.
+#' @param assay4quants character(1) name of assay component to use for univariate analysis,
+#; defaults to "X", which comes from ingesting an h5ad 
+#' @param colGraphName character(1) defaults to 'spatNeigh' which is the name used within
+#' `process_mcmicro` for the colGraph production
+#' @param BPPARAM defaults to the `BiocParallel::bpparam()` value for the session at
+#' the time this function is called
 #' @export
 default_uruns = function(assay4quants="X", colGraphName="spatNeigh",
     BPPARAM=BiocParallel::bpparam()) function(features, ...) {
@@ -24,7 +30,10 @@ default_uruns = function(assay4quants="X", colGraphName="spatNeigh",
 #' @import SpatialExperiment
 #' @importFrom SummarizedExperiment assayNames colData
 #' @import Voyager
+#' @import methods
 #' @param h5ad character(1) path to an MCMICRO output in h5ad format
+#' @param uconfig this is a closure that builds runUnivariate calls with all available features,
+#' see `default_uruns`
 #' @param coordnames character() names in colData of transformed h5ad used to specify X, Y
 #' @param spneigh_parms list() of arguments (other than x) to Voyager::findSpatialNeighbors, defaults to list()
 #' @param assay4quants character(1) name in assayNames of transformed h5ad used as protein quantification
@@ -47,8 +56,7 @@ default_uruns = function(assay4quants="X", colGraphName="spatNeigh",
 #'                 diverge_center = 0)
 #' @export
 process_mcmicro = function(h5ad, uconfig=default_uruns(),
-     coordnames = c("X_centroid", "Y_centroid"), spneigh_parms=list(), assay4quants="X", verbose=TRUE,
-     ...) {
+     coordnames = c("X_centroid", "Y_centroid"), spneigh_parms=list(), assay4quants="X", verbose=TRUE) {
   sce = zellkonverter::readH5AD(h5ad)
   spe = as(sce, "SpatialExperiment")
   stopifnot(coordnames %in% colnames(colData(spe)))

@@ -10,9 +10,26 @@ default_uruns(
   BPPARAM = BiocParallel::bpparam()
 )
 }
+\arguments{
+\item{assay4quants}{character(1) name of assay component to use for univariate analysis,}
+
+\item{colGraphName}{character(1) defaults to 'spatNeigh' which is the name used within
+`process_mcmicro` for the colGraph production}
+
+\item{BPPARAM}{defaults to the `BiocParallel::bpparam()` value for the session at
+the time this function is called}
+}
+\value{
+A closure.  The intent is that the value is passed a vector of
+feature names.  The resulting list has named elements.  The name of
+each element is the 'type' of univariate statistical analysis, and the
+elements of the associated element are arguments to runUnivariate used with that
+analysis type.
+}
 \description{
 create a default configuration for several runUnivariate tasks
 }
 \note{
-dots arguments must be present for all components
+Any values supplied to dots in the returned closure must be present for all components for all
+desired runUnivariate calls.
 }

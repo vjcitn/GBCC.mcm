@@ -10,12 +10,14 @@ process_mcmicro(
   coordnames = c("X_centroid", "Y_centroid"),
   spneigh_parms = list(),
   assay4quants = "X",
-  verbose = TRUE,
-  ...
+  verbose = TRUE
 )
 }
 \arguments{
 \item{h5ad}{character(1) path to an MCMICRO output in h5ad format}
+
+\item{uconfig}{this is a closure that builds runUnivariate calls with all available features,
+see `default_uruns`}
 
 \item{coordnames}{character() names in colData of transformed h5ad used to specify X, Y}
 
@@ -35,6 +37,7 @@ spneigh_parms setting is `list(method='knearneigh', k=4)`.
 }
 \examples{
 pa = get_mcm_path("m53.1")
+# by default, moran.plot and localG type univariate analyses are conducted
 mcm53.1 = process_mcmicro(pa)
 features_use = c("NCAM", "FOXP3", "CD8A", "LDH")
 Voyager::plotLocalResult(mcm53.1, "localG", features = features_use,
