@@ -271,7 +271,7 @@ jobs:
       - name: Install deploy dependencies
         if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
-          apt-get update && apt-get -y install rsync
+          apt-get update && apt-get -y install rsync libtiff5-dev libjpeg-dev
 
       - name: Deploy pkgdown site to GitHub pages 🚀
         if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
