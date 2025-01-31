@@ -7,7 +7,7 @@
 get_mcm_path(tag = "m53.1")
 }
 \arguments{
-\item{tag}{character(1) one of m53.1, ..., m53.4}
+\item{tag}{character(1) one of m53.1, ..., m53.4, m62.1}
 }
 \description{
 get path to mcmicro h5ad in package
