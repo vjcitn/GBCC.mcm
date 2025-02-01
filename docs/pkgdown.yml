@@ -1,0 +1,9 @@
+pandoc: '2.13'
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  GBCC.mcm: GBCC.mcm.html
+last_built: 2025-02-01T11:08Z
+urls:
+  reference: https://github.com/vjcitn/GBCC.mcm/reference
+  article: https://github.com/vjcitn/GBCC.mcm/articles
