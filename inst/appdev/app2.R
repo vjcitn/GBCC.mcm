@@ -34,7 +34,9 @@ ui = fluidPage(
    tabPanel("about",
     textOutput("iniabout"),
     helpText("sources at github.com/vjcitn/GBCC.mcm"),
-    verbatimTextOutput("cursfe")
+    verbatimTextOutput("cursfe"),
+    helpText("Session information:"),
+    verbatimTextOutput("sessinf")
    )
   )
  )
@@ -67,6 +69,9 @@ in advance and bound to the instances for viewing with this app.", packageVersio
    checkboxGroupInput("genes2", "Select targets to display:", choices=targets,
        selected=c("NCAM", "FOXP3", "CD8A", "LDH"), inline=TRUE)
    })
+ output$sessinf = renderPrint({
+  sessionInfo()
+  })
 }
 
 runApp(list(ui=ui, server=server))
