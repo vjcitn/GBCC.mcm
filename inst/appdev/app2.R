@@ -46,7 +46,9 @@ server = function(input, output) {
   cur
  })
  output$iniabout = renderText(
-  sprintf("GBCC.mcm version. %s", packageVersion("GBCC.mcm"))
+  sprintf("GBCC.mcm version. %s.  MCMICRO outputs provided as h5ad were transformed to 
+SpatialFeatureExperiment instances; some statistical computations were performed
+in advance and bound to the instances for viewing with this app.", packageVersion("GBCC.mcm"))
  )
 
  output$simple = renderPlot({
@@ -62,7 +64,7 @@ server = function(input, output) {
    Voyager::plotColGraph(cur)
    })
  output$checkboxes = renderUI({
-   checkboxGroupInput("genes2", "targ2", choices=targets,
+   checkboxGroupInput("genes2", "Select targets to display:", choices=targets,
        selected=c("NCAM", "FOXP3", "CD8A", "LDH"), inline=TRUE)
    })
 }
