@@ -42,7 +42,7 @@ mcm53.1 = process_mcmicro(pa)
 features_use = c("NCAM", "FOXP3", "CD8A", "LDH")
 Voyager::plotLocalResult(mcm53.1, "localG", features = features_use,
                 colGeometryName = "centroids", divergent = TRUE,
-                diverge_center = 0)
+                diverge_center = 0, show_axes=TRUE)
 mcm53.1b = process_mcmicro(pa, spneigh_parms=list(method="knearneigh", k=3))
 Voyager:::plotColGraph(mcm53.1b)
 Voyager::plotLocalResult(mcm53.1b, "localG", features = features_use,
