@@ -102,7 +102,22 @@ in advance and bound to the instances for viewing with this app.", packageVersio
      column(width=3, sliderInput("xhi", "xhi", min=0, max=max(round(mm$X_centroid+1,0)), value=max(mm$X_centroid)))
      )
   })
-
+ output$feattabsel = renderUI({
+    x = getcur()
+    feats = rownames(x)
+    selectInput("feat2tab", "feature", choices=feats, selected=feats[1], multiple=FALSE)
+    })
+ output$stattab = DT::renderDataTable({
+    x = getcur()
+    gdat = localResults(x)$localG  # FIXME
+    validate(need(nchar(input$feat2tab)>0, "waiting for feature to tabulate"))
+    res = as(gdat[[input$feat2tab]], "data.frame")
+    res = cbind(res, phenotype=x$phenotype)
+    isn = which(sapply(res, is.numeric))
+    if (length(isn)==0) return(res)
+    for (i in isn) res[[i]] = round(res[[i]], 7)
+    res
+    })
 }
 
 

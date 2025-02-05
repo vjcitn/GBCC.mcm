@@ -33,7 +33,11 @@ ui = fluidPage(
       column(checkboxInput("useknn", "use nn", value=FALSE),width=2),
       column(numericInput("kpicked", "kval", value=3, min=2, max=30),width=2)
       ),
-    plotOutput("graph"),
+    plotOutput("graph")
+   ),
+   tabPanel("tables",
+    uiOutput("feattabsel"),
+    DT::dataTableOutput("stattab")
    ),
    tabPanel("focus",
     uiOutput("xsliders"),
