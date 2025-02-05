@@ -42,6 +42,7 @@ ui = fluidPage(
    tabPanel("focus",
     uiOutput("xsliders"),
     uiOutput("ysliders"),
+    actionButton("dofilt", "filter"),
     plotOutput("ellipses")
    ),
    tabPanel("about",

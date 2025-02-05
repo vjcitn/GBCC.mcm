@@ -60,6 +60,9 @@ in advance and bound to the instances for viewing with this app.", packageVersio
   sessionInfo()
   })
  output$ellipses = renderPlot({
+  build_ellipses()$gg
+  })
+ build_ellipses = eventReactive(input$dofilt, {
 ##  x = readObject(input$samples)
   x = getcur()
   mm = SummarizedExperiment::colData(x)
@@ -78,8 +81,9 @@ in advance and bound to the instances for viewing with this app.", packageVersio
   tttt = sf::st_multilinestring(tttf[which(ok)])
   dd = data.frame(dd)
   dd$ph = mm$phenotype
-  ggplot2::ggplot(tttt) + ggplot2::geom_sf() + ggplot2::geom_point(data=dd[ok,], ggplot2::aes(x=X_centroid,
+  gg = ggplot2::ggplot(tttt) + ggplot2::geom_sf() + ggplot2::geom_point(data=dd[ok,], ggplot2::aes(x=X_centroid,
     y=Y_centroid, colour=ph))
+  list(gg=gg)
   })
  output$ysliders = renderUI({
 ##    x = readObject(input$samples)
