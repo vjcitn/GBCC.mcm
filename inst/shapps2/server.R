@@ -17,9 +17,20 @@ library(shiny)
 
 
 server = function(input, output) {
- output$cursfe = renderPrint({
+ getcur = reactive({
   cur = readObject(input$samples)
+  if (input$useknn) {
+   spneigh_parms = list(method='knearneigh', k=input$kpicked) 
+   fsnargs = list(x=cur)
+   g1 = do.call(SpatialFeatureExperiment::findSpatialNeighbors, c(fsnargs, spneigh_parms))
+   colGraph(cur, "spatNeigh") = g1
+   }
   cur
+  })
+ output$cursfe = renderPrint({
+  getcur()
+##  cur = readObject(input$samples)
+##  cur
  })
  output$iniabout = renderText(
   sprintf("GBCC.mcm version. %s.  MCMICRO outputs provided as h5ad were transformed to 
@@ -28,7 +39,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
  )
 
  output$simple = renderPlot({
-   cur = readObject(input$samples)
+ ##  cur = readObject(input$samples)
+   cur = getcur()
    validate(need(isTRUE(nchar(input$genes2[1])>0), "awaiting gene list"))
    features_use = input$genes2
    Voyager::plotLocalResult(cur, "localG", features = features_use,
@@ -36,7 +48,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
                    diverge_center = 0, show_axes=TRUE)
    })
  output$graph = renderPlot({
-   cur = readObject(input$samples)
+##   cur = readObject(input$samples)
+   cur = getcur()
    Voyager::plotColGraph(cur)
    })
  output$checkboxes = renderUI({
@@ -47,7 +60,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
   sessionInfo()
   })
  output$ellipses = renderPlot({
-  x = readObject(input$samples)
+##  x = readObject(input$samples)
+  x = getcur()
   mm = SummarizedExperiment::colData(x)
   dd = data.matrix(mm[, c("X_centroid", "Y_centroid")])
   cens = lapply(seq_len(nrow(dd)), function(x) sf::st_point(dd[x,]))
@@ -68,7 +82,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
     y=Y_centroid, colour=ph))
   })
  output$ysliders = renderUI({
-    x = readObject(input$samples)
+##    x = readObject(input$samples)
+    x = getcur()
     mm = SummarizedExperiment::colData(x)
     validate(need(length(mm$Y_centroid)>0, "retrieving data"))
     fluidRow(
@@ -78,7 +93,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
      )
   })
  output$xsliders = renderUI({
-    x = readObject(input$samples)
+##    x = readObject(input$samples)
+    x = getcur()
     mm = SummarizedExperiment::colData(x)
     validate(need(length(mm$X_centroid)>0, "retrieving data"))
     fluidRow(

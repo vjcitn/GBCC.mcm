@@ -29,6 +29,10 @@ ui = fluidPage(
     uiOutput("checkboxes")
    ),
    tabPanel("neighbors",
+    fluidRow( 
+      column(checkboxInput("useknn", "use nn", value=FALSE),width=2),
+      column(numericInput("kpicked", "kval", value=3, min=2, max=30),width=2)
+      ),
     plotOutput("graph"),
    ),
    tabPanel("focus",
