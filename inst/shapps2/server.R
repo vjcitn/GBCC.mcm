@@ -33,7 +33,7 @@ in advance and bound to the instances for viewing with this app.", packageVersio
    features_use = input$genes2
    Voyager::plotLocalResult(cur, "localG", features = features_use,
                    colGeometryName = "centroids", divergent = TRUE,
-                   diverge_center = 0)
+                   diverge_center = 0, show_axes=TRUE)
    })
  output$graph = renderPlot({
    cur = readObject(input$samples)
@@ -46,6 +46,47 @@ in advance and bound to the instances for viewing with this app.", packageVersio
  output$sessinf = renderPrint({
   sessionInfo()
   })
+ output$ellipses = renderPlot({
+  x = readObject(input$samples)
+  mm = SummarizedExperiment::colData(x)
+  dd = data.matrix(mm[, c("X_centroid", "Y_centroid")])
+  cens = lapply(seq_len(nrow(dd)), function(x) sf::st_point(dd[x,]))
+  maj = mm$MajorAxisLength/2
+  min = mm$MinorAxisLength/2
+  angle_in_rad = mm$Orientation
+  angle_in_deg = angle_in_rad/0.01745329  # pi/180, assume sign handled well
+  tt = lapply(seq_len(length(cens)), function(x)
+    sfdep::st_ellipse(cens[[x]], sx=maj[x], sy=min[x], rotation=angle_in_deg[x]))
+  ttt = lapply(tt, function(x) matrix(unlist(x), nr=101))
+  validate(need(length(input$xlow)>0,"waiting for controls"))
+  tttf = lapply(ttt, function(x) {x[x[,1]>input$xlow & x[,1]<input$xhi & x[,2]>input$ylow & x[,2]<input$yhi,]})
+  ok = sapply(tttf, function(x) nrow(x)>0)
+  tttt = sf::st_multilinestring(tttf[which(ok)])
+  dd = data.frame(dd)
+  dd$ph = mm$phenotype
+  ggplot2::ggplot(tttt) + ggplot2::geom_sf() + ggplot2::geom_point(data=dd[ok,], ggplot2::aes(x=X_centroid,
+    y=Y_centroid, colour=ph))
+  })
+ output$ysliders = renderUI({
+    x = readObject(input$samples)
+    mm = SummarizedExperiment::colData(x)
+    validate(need(length(mm$Y_centroid)>0, "retrieving data"))
+    fluidRow(
+     column(width=3, sliderInput("ylow", "ylow", min=0, max=max(round(mm$Y_centroid+1,0)), value=0)),
+     column(width=3, sliderInput("yhi", "yhi", min=0, max=max(round(mm$Y_centroid+1,0)), 
+        value=max(round(mm$Y_centroid+1,0))))
+     )
+  })
+ output$xsliders = renderUI({
+    x = readObject(input$samples)
+    mm = SummarizedExperiment::colData(x)
+    validate(need(length(mm$X_centroid)>0, "retrieving data"))
+    fluidRow(
+     column(width=3, sliderInput("xlow", "xlow", min=0, max=max(round(mm$X_centroid+1,0)), value=0)),
+     column(width=3, sliderInput("xhi", "xhi", min=0, max=max(round(mm$X_centroid+1,0)), value=max(mm$X_centroid)))
+     )
+  })
+
 }
 
 

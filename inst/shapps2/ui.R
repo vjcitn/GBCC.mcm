@@ -31,6 +31,11 @@ ui = fluidPage(
    tabPanel("neighbors",
     plotOutput("graph"),
    ),
+   tabPanel("focus",
+    uiOutput("xsliders"),
+    uiOutput("ysliders"),
+    plotOutput("ellipses")
+   ),
    tabPanel("about",
     textOutput("iniabout"),
     helpText("sources at github.com/vjcitn/GBCC.mcm"),
