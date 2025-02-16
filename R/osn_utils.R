@@ -1,8 +1,8 @@
 
 osn_url = "https://mghp.osn.xsede.org/bir190004-bucket01/BiocGBCCmcm"
 
-mcm.sfe.zips = c( "m53.1.sfe.zip", "m53.2.sfe.zip", 
-   "m53.3.sfe.zip", "m53.4.sfe.zip", "m62.1.sfe.zip")
+mcm.sfe.zips = c( "m62.1.sfe.zip", "m62.2.sfe.zip", 
+   "m62.3.sfe.zip", "m62.4.sfe.zip")
 
 # assumes artifacts have sfe.zip as suffix
 
@@ -19,10 +19,23 @@ available_mcm = function(local=FALSE) {
  return(paste(osn_url, "/", mcm.sfe.zips, sep=""))
 }
 
-#' retrieve a specified zipped experiment from cache, downloading to cache if necessary
+#' retrieve a specified zipped takane-formatted SpatialFeatureExperiment from cache, downloading to cache if necessary
+#' @import BiocFileCache
+#' @note alabaster.sfe's saveObject was used before zipping these results of `process_mcmicro` for
+#' datasets supplied by Jeremy Goecks.
 #' @param experiment character(1)
+#' @param local logical(1), if TRUE, assume available at Sys.getenv("MCM_LOCAL")
+#' @param cache like BiocFileCache() value
+#' @examples
+#' pa = path_to_zipped_mcm()
+#' tf = tempfile()
+#' unzip(pa, exdir=tf)
+#' requireNamespace("alabaster.sfe")
+#' dem = alabaster.base::readObject(file.path(tf, "m62.1.sfe"))
+#' dem
+#' table(dem$phenotype)
 #' @export
-path_to_zipped_mcm = function(experiment = "m53.1.sfe.zip", local=FALSE,
+path_to_zipped_mcm = function(experiment = "m62.1.sfe.zip", local=FALSE,
      cache = BiocFileCache::BiocFileCache()) {
 # check name is available
   avail = available_mcm(local = local)

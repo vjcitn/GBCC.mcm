@@ -31,7 +31,7 @@ default_uruns = function(assay4quants="X", colGraphName="spatNeigh",
 #' @importFrom SummarizedExperiment assayNames colData
 #' @import Voyager
 #' @import methods
-#' @param h5ad character(1) path to an MCMICRO output in h5ad format
+#' @param h5ad character(1) path to an MCMICRO/galaxy output in h5ad format
 #' @param uconfig this is a closure that builds runUnivariate calls with all available features,
 #' see `default_uruns`
 #' @param coordnames character() names in colData of transformed h5ad used to specify X, Y
@@ -42,16 +42,16 @@ default_uruns = function(assay4quants="X", colGraphName="spatNeigh",
 #' function, we compute a `colGraph` component, which assumes MARGIN value is 2.  An example
 #' spneigh_parms setting is `list(method='knearneigh', k=4)`.
 #' @examples
-#' pa = get_mcm_path("m53.1")
+#' pa = get_mcm_path("m62.1")
 #' # by default, moran.plot and localG type univariate analyses are conducted
-#' mcm53.1 = process_mcmicro(pa)
+#' mcm62.1 = process_mcmicro(pa)
 #' features_use = c("NCAM", "FOXP3", "CD8A", "LDH")
-#' Voyager::plotLocalResult(mcm53.1, "localG", features = features_use,
+#' Voyager::plotLocalResult(mcm62.1, "localG", features = features_use,
 #'                 colGeometryName = "centroids", divergent = TRUE,
 #'                 diverge_center = 0, show_axes=TRUE)
-#' mcm53.1b = process_mcmicro(pa, spneigh_parms=list(method="knearneigh", k=3))
-#' Voyager:::plotColGraph(mcm53.1b)
-#' Voyager::plotLocalResult(mcm53.1b, "localG", features = features_use,
+#' mcm62.1b = process_mcmicro(pa, spneigh_parms=list(method="knearneigh", k=3))
+#' Voyager:::plotColGraph(mcm62.1b)
+#' Voyager::plotLocalResult(mcm62.1b, "localG", features = features_use,
 #'                 colGeometryName = "centroids", divergent = TRUE,
 #'                 diverge_center = 0)
 #' @export

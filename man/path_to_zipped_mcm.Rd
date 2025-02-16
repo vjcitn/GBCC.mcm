@@ -2,17 +2,34 @@
 % Please edit documentation in R/osn_utils.R
 \name{path_to_zipped_mcm}
 \alias{path_to_zipped_mcm}
-\title{retrieve a specified zipped experiment from cache, downloading to cache if necessary}
+\title{retrieve a specified zipped takane-formatted SpatialFeatureExperiment from cache, downloading to cache if necessary}
 \usage{
 path_to_zipped_mcm(
-  experiment = "m53.1.sfe.zip",
+  experiment = "m62.1.sfe.zip",
   local = FALSE,
   cache = BiocFileCache::BiocFileCache()
 )
 }
 \arguments{
 \item{experiment}{character(1)}
+
+\item{local}{logical(1), if TRUE, assume available at Sys.getenv("MCM_LOCAL")}
+
+\item{cache}{like BiocFileCache() value}
 }
 \description{
-retrieve a specified zipped experiment from cache, downloading to cache if necessary
+retrieve a specified zipped takane-formatted SpatialFeatureExperiment from cache, downloading to cache if necessary
+}
+\note{
+alabaster.sfe's saveObject was used before zipping these results of `process_mcmicro` for
+datasets supplied by Jeremy Goecks.
+}
+\examples{
+pa = path_to_zipped_mcm()
+tf = tempfile()
+unzip(pa, exdir=tf)
+requireNamespace("alabaster.sfe")
+dem = alabaster.base::readObject(file.path(tf, "m62.1.sfe"))
+dem
+table(dem$phenotype)
 }
