@@ -43,7 +43,7 @@ ui = fluidPage(
     uiOutput("xsliders"),
     uiOutput("ysliders"),
     actionButton("dofilt", "filter"),
-    plotOutput("ellipses")
+    plotly::plotlyOutput("ellipses")
    ),
    tabPanel("about",
     textOutput("iniabout"),

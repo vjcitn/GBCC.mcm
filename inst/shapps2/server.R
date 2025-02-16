@@ -59,8 +59,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
  output$sessinf = renderPrint({
   sessionInfo()
   })
- output$ellipses = renderPlot({
-  build_ellipses()$gg
+ output$ellipses = plotly::renderPlotly({
+  plotly::ggplotly(build_ellipses()$gg)
   })
  build_ellipses = eventReactive(input$dofilt, {
 ##  x = readObject(input$samples)
@@ -76,13 +76,16 @@ in advance and bound to the instances for viewing with this app.", packageVersio
     sfdep::st_ellipse(cens[[x]], sx=maj[x], sy=min[x], rotation=angle_in_deg[x]))
   ttt = lapply(tt, function(x) matrix(unlist(x), nr=101))
   validate(need(length(input$xlow)>0,"waiting for controls"))
+  validate(need(input$xlow<input$xhi,"be sure xlow < xhi"))
+  validate(need(input$ylow<input$yhi,"be sure ylow < yhi"))
   tttf = lapply(ttt, function(x) {x[x[,1]>input$xlow & x[,1]<input$xhi & x[,2]>input$ylow & x[,2]<input$yhi,]})
   ok = sapply(tttf, function(x) nrow(x)>0)
   tttt = sf::st_multilinestring(tttf[which(ok)])
   dd = data.frame(dd)
   dd$ph = mm$phenotype
+  dd$cid = paste(mm$phenotype, ":", seq_len(nrow(mm))) 
   gg = ggplot2::ggplot(tttt) + ggplot2::geom_sf() + ggplot2::geom_point(data=dd[ok,], ggplot2::aes(x=X_centroid,
-    y=Y_centroid, colour=ph))
+    y=Y_centroid, colour=ph, text=cid))
   list(gg=gg)
   })
  output$ysliders = renderUI({
@@ -91,9 +94,9 @@ in advance and bound to the instances for viewing with this app.", packageVersio
     mm = SummarizedExperiment::colData(x)
     validate(need(length(mm$Y_centroid)>0, "retrieving data"))
     fluidRow(
-     column(width=3, sliderInput("ylow", "ylow", min=0, max=max(round(mm$Y_centroid+1,0)), value=0)),
+     column(width=3, sliderInput("ylow", "ylow", min=0, max=max(round(mm$Y_centroid+1,0)), value=0, step=50, animate=TRUE)),
      column(width=3, sliderInput("yhi", "yhi", min=0, max=max(round(mm$Y_centroid+1,0)), 
-        value=max(round(mm$Y_centroid+1,0))))
+        value=max(round(mm$Y_centroid+1,0))), step=50, animate=TRUE)
      )
   })
  output$xsliders = renderUI({
@@ -102,8 +105,8 @@ in advance and bound to the instances for viewing with this app.", packageVersio
     mm = SummarizedExperiment::colData(x)
     validate(need(length(mm$X_centroid)>0, "retrieving data"))
     fluidRow(
-     column(width=3, sliderInput("xlow", "xlow", min=0, max=max(round(mm$X_centroid+1,0)), value=0)),
-     column(width=3, sliderInput("xhi", "xhi", min=0, max=max(round(mm$X_centroid+1,0)), value=max(mm$X_centroid)))
+     column(width=3, sliderInput("xlow", "xlow", min=0, max=max(round(mm$X_centroid+1,0)), value=0, step=50, animate=TRUE)),
+     column(width=3, sliderInput("xhi", "xhi", min=0, max=max(round(mm$X_centroid+1,0)), value=max(mm$X_centroid), step=50, animate=TRUE))
      )
   })
  output$feattabsel = renderUI({
