@@ -40,15 +40,15 @@ We retrieve, cache, and deserialize using the following code.
 library(GBCC.mcm)
 library(alabaster.sfe)
 library(Voyager)
-pa = path_to_zipped_mcm("m53.1")
+pa = path_to_zipped_mcm("m62.1")
 tf = tempfile()
 unzip(pa, exdir=tf)
 targ = dir(tf, full=TRUE)
-m53.1 = readObject(targ)
-m53.1
+m62.1 = readObject(targ)
+m62.1
 ```
 
-Available experiments are named m53.1(1)4 and m62.1.
+Available experiments are named m62.1(1)4 and m62.1.
 
 # Analytic preparation
 
@@ -65,13 +65,13 @@ Results of these tasks are bound with the SFE instances.
 The default spatial neighbors graph for the experiment retrieved
 above:
 ```{r lkgr}
-plotColGraph(m53.1)
+plotColGraph(m62.1)
 ```
 
 ## Local statistics
 
 ```{r lkloc}
-localResultNames(m53.1)
+localResultNames(m62.1)
 ```
 
 A display of Z-scores for spatial clustering for four
@@ -79,7 +79,7 @@ proteins assayed in the experiment is:
 
 ```{r lkgi}
 features_use = c("NCAM", "FOXP3", "CD8A", "LDH")
-Voyager::plotLocalResult(m53.1, "localG", features = features_use,
+Voyager::plotLocalResult(m62.1, "localG", features = features_use,
                  colGeometryName = "centroids", divergent = TRUE,
                  diverge_center = 0)
 ```
