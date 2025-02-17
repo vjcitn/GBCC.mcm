@@ -1,8 +1,9 @@
+# note the branches and ref elements
 
 name: CI4bioc320
 on:
   push:
-    branches: [ REL_3_20_ISO ]
+    branches: [ main ]
 jobs:
   container-test-job:
     runs-on: ubuntu-latest
@@ -24,13 +25,13 @@ jobs:
       - name: Checkout Repository 
         uses: actions/checkout@v4 
         with:
-          ref: REL_3_20_ISO
+          ref: main
       - name: What is here
         run: (ls)
       - name: view DESCRIPTION
         run: (cat DESCRIPTION)
       - name: get dependencies, but some may not be installed, unclear why as of 14 feb 2025
-        run: (Rscript -e "BiocManager::install(basename(getwd()), ref='RELEASE_3_20', dependencies=TRUE, update=FALSE, Ncpus=2, type='both')")
+        run: (Rscript -e "BiocManager::install(paste0("vjcitn/", basename(getwd())), dependencies=TRUE, update=FALSE, Ncpus=2, type='both')")
       - name: look at pkgs
         run: (Rscript -e 'print(sort(rownames(installed.packages())))')
       - name: install missing suggested
