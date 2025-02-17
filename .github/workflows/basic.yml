@@ -31,7 +31,7 @@ jobs:
       - name: view DESCRIPTION
         run: (cat DESCRIPTION)
       - name: get dependencies, but some may not be installed, unclear why as of 14 feb 2025
-        run: (Rscript -e "BiocManager::install(paste0("vjcitn/", basename(getwd())), dependencies=TRUE, update=FALSE, Ncpus=2, type='both')")
+        run: (Rscript -e "BiocManager::install(paste0('vjcitn/', basename(getwd())), dependencies=TRUE, update=FALSE, Ncpus=2, type='both')")
       - name: look at pkgs
         run: (Rscript -e 'print(sort(rownames(installed.packages())))')
       - name: install missing suggested
