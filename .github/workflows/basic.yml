@@ -1,0 +1,49 @@
+
+name: CI4bioc320
+on:
+  push:
+    branches: [ REL_3_20_ISO ]
+jobs:
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: vjcitn/isob2u:0.0.3
+# using r2u via bioc2u
+      env:
+        NODE_ENV: development
+      options: --cpus 2
+    steps:
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+      - name: Assess R version
+        run: (Rscript -e version)
+      - name: show path to R
+        run: (which R)
+      - name: Where am I
+        run: (pwd)
+      - name: Checkout Repository 
+        uses: actions/checkout@v4 
+        with:
+          ref: REL_3_20_ISO
+      - name: What is here
+        run: (ls)
+      - name: view DESCRIPTION
+        run: (cat DESCRIPTION)
+      - name: get dependencies, but some may not be installed, unclear why as of 14 feb 2025
+        run: (Rscript -e "BiocManager::install(basename(getwd()), ref='RELEASE_3_20', dependencies=TRUE, update=FALSE, Ncpus=2, type='both')")
+      - name: look at pkgs
+        run: (Rscript -e 'print(sort(rownames(installed.packages())))')
+      - name: install missing suggested
+        run: |
+          Rscript -e '
+             cleanSugg <- function(x) {
+             gsub("\\n| |.>.*", "", strsplit(x, ",")[[1]])
+             }
+          sugtxt <- packageDescription(basename(getwd()))[["Suggests"]]
+          suggs <- cleanSugg(sugtxt)
+          BiocManager::install(suggs, type="both")
+          '
+      - name: do r cmd check
+        run: (Rscript -e "rcmdcheck::rcmdcheck()")
+
+# cleanSugg = function(x) gsub("\\n| |\\(.*", "", strsplit(x, ",")[[1]])
