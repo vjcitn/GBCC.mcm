@@ -1,6 +1,6 @@
 Package: GBCC.mcm
 Title: MCMICRO analysis examples for GBCC 2025
-Version: 0.0.9
+Version: 0.0.10
 Authors@R:
     person(given = "Vince",
            family = "Carey",
@@ -10,10 +10,10 @@ Authors@R:
 Description: Use Bioconductor spatial omics methods with MCMICRO experients.
 	This package includes h5ad files supplied by Jeremy Goecks.  This
 	package processes these h5ad files into SpatialFeatureExperiments.
-Depends: R (>= 4.3), utils
+Depends: R (>= 4.3), utils, shiny, DT, zellkonverter, sfdep, SpatialFeatureExperiment
 Suggests: knitr, BiocStyle, testthat, rmarkdown, alabaster.sfe, alabaster.base
-Imports: SpatialFeatureExperiment, Voyager, SpatialExperiment, zellkonverter,
-	SummarizedExperiment, BiocParallel, methods, BiocFileCache, shiny
+Imports: Voyager, SpatialExperiment, 
+	SummarizedExperiment, BiocParallel, methods, BiocFileCache
 License: Artistic-2.0
 VignetteBuilder: knitr
 biocViews: Infrastructure
