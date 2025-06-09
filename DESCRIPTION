@@ -10,8 +10,9 @@ Authors@R:
 Description: Use Bioconductor spatial omics methods with MCMICRO experients.
 	This package includes h5ad files supplied by Jeremy Goecks.  This
 	package processes these h5ad files into SpatialFeatureExperiments.
-Depends: R (>= 4.3), utils, shiny, DT, zellkonverter, sfdep, SpatialFeatureExperiment
-Suggests: knitr, BiocStyle, testthat, rmarkdown, alabaster.sfe, alabaster.base
+Depends: R (>= 4.3), utils, shiny
+Suggests: knitr, BiocStyle, testthat, rmarkdown, alabaster.sfe, alabaster.base,
+	DT, zellkonverter, sfdep, SpatialFeatureExperiment
 Imports: Voyager, SpatialExperiment, 
 	SummarizedExperiment, BiocParallel, methods, BiocFileCache
 License: Artistic-2.0
