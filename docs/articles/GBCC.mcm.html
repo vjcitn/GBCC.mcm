@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GBCC.mcm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
       <h1>GBCC.mcm overview</h1>
                         <h4 data-toc-skip class="author">Vincent J. Carey, stvjc at channing.harvard.edu</h4>
             
-            <h4 data-toc-skip class="date">February 01, 2025</h4>
+            <h4 data-toc-skip class="date">May 05, 2025</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/vjcitn/GBCC.mcm/blob/HEAD/vignettes/GBCC.mcm.Rmd"><code>vignettes/GBCC.mcm.Rmd</code></a></small>
       <div class="d-none name"><code>GBCC.mcm.Rmd</code></div>
@@ -84,12 +84,12 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vjcitn/GBCC.mcm">GBCC.mcm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pachterlab.github.io/alabaster.sfe/" class="external-link">alabaster.sfe</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pachterlab/voyager" class="external-link">Voyager</a></span><span class="op">)</span></span>
-<span><span class="va">pa</span> <span class="op">=</span> <span class="fu"><a href="../reference/path_to_zipped_mcm.html">path_to_zipped_mcm</a></span><span class="op">(</span><span class="st">"m53.1"</span><span class="op">)</span></span>
+<span><span class="va">pa</span> <span class="op">=</span> <span class="fu"><a href="../reference/path_to_zipped_mcm.html">path_to_zipped_mcm</a></span><span class="op">(</span><span class="st">"m62.1"</span><span class="op">)</span></span>
 <span><span class="va">tf</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">pa</span>, exdir<span class="op">=</span><span class="va">tf</span><span class="op">)</span></span>
 <span><span class="va">targ</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="va">tf</span>, full<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">m53.1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/alabaster.base/man/readObject.html" class="external-link">readObject</a></span><span class="op">(</span><span class="va">targ</span><span class="op">)</span></span>
-<span><span class="va">m53.1</span></span></code></pre></div>
+<span><span class="va">m62.1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/alabaster.base/man/readObject.html" class="external-link">readObject</a></span><span class="op">(</span><span class="va">targ</span><span class="op">)</span></span>
+<span><span class="va">m62.1</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SpatialFeatureExperiment </span></span>
 <span><span class="co">## dim: 30 8577 </span></span>
 <span><span class="co">## metadata(1): all_markers</span></span>
@@ -97,7 +97,7 @@
 <span><span class="co">## rownames(30): AF488 AF555 ... CD1B CD8A</span></span>
 <span><span class="co">## rowData names(0):</span></span>
 <span><span class="co">## colnames(8577): 1 2 ... 8576 8577</span></span>
-<span><span class="co">## colData names(11): X_centroid Y_centroid ... imageid sample_id</span></span>
+<span><span class="co">## colData names(12): X_centroid Y_centroid ... phenotype sample_id</span></span>
 <span><span class="co">## reducedDimNames(0):</span></span>
 <span><span class="co">## mainExpName: NULL</span></span>
 <span><span class="co">## altExpNames(0):</span></span>
@@ -110,7 +110,7 @@
 <span><span class="co">## </span></span>
 <span><span class="co">## Graphs:</span></span>
 <span><span class="co">## sample01: col: spatNeigh</span></span></code></pre>
-<p>Available experiments are named m53.1(1)4 and m62.1.</p>
+<p>Available experiments are named m62.1(1)4 and m62.1.</p>
 </div>
 <div class="section level2">
 <h2 id="analytic-preparation">Analytic preparation<a class="anchor" aria-label="anchor" href="#analytic-preparation"></a>
@@ -126,19 +126,19 @@
 </h3>
 <p>The default spatial neighbors graph for the experiment retrieved above:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotColGraph.html" class="external-link">plotColGraph</a></span><span class="op">(</span><span class="va">m53.1</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotColGraph.html" class="external-link">plotColGraph</a></span><span class="op">(</span><span class="va">m62.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="GBCC.mcm_files/figure-html/lkgr-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="local-statistics">Local statistics<a class="anchor" aria-label="anchor" href="#local-statistics"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SpatialFeatureExperiment/man/localResults.html" class="external-link">localResultNames</a></span><span class="op">(</span><span class="va">m53.1</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/SpatialFeatureExperiment/man/localResults.html" class="external-link">localResultNames</a></span><span class="op">(</span><span class="va">m62.1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "moran.plot" "localG"</span></span></code></pre>
 <p>A display of Z-scores for spatial clustering for four proteins assayed in the experiment is:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">features_use</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NCAM"</span>, <span class="st">"FOXP3"</span>, <span class="st">"CD8A"</span>, <span class="st">"LDH"</span><span class="op">)</span></span>
-<span><span class="fu">Voyager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotLocalResult.html" class="external-link">plotLocalResult</a></span><span class="op">(</span><span class="va">m53.1</span>, <span class="st">"localG"</span>, features <span class="op">=</span> <span class="va">features_use</span>,</span>
+<span><span class="fu">Voyager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotLocalResult.html" class="external-link">plotLocalResult</a></span><span class="op">(</span><span class="va">m62.1</span>, <span class="st">"localG"</span>, features <span class="op">=</span> <span class="va">features_use</span>,</span>
 <span>                 colGeometryName <span class="op">=</span> <span class="st">"centroids"</span>, divergent <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                 diverge_center <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="GBCC.mcm_files/figure-html/lkgi-1.png" width="700"></p>
@@ -155,7 +155,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>

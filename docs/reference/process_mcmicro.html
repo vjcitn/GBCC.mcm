@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GBCC.mcm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@
 
 
 <dl><dt id="arg-h-ad">h5ad<a class="anchor" aria-label="anchor" href="#arg-h-ad"></a></dt>
-<dd><p>character(1) path to an MCMICRO output in h5ad format</p></dd>
+<dd><p>character(1) path to an MCMICRO/galaxy output in h5ad format</p></dd>
 
 
 <dt id="arg-uconfig">uconfig<a class="anchor" aria-label="anchor" href="#arg-uconfig"></a></dt>
@@ -90,24 +90,27 @@ spneigh_parms setting is `list(method='knearneigh', k=4)`.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pa</span> <span class="op">=</span> <span class="fu"><a href="get_mcm_path.html">get_mcm_path</a></span><span class="op">(</span><span class="st">"m53.1"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pa</span> <span class="op">=</span> <span class="fu"><a href="get_mcm_path.html">get_mcm_path</a></span><span class="op">(</span><span class="st">"m62.1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># by default, moran.plot and localG type univariate analyses are conducted</span></span></span>
-<span class="r-in"><span><span class="va">mcm53.1</span> <span class="op">=</span> <span class="fu">process_mcmicro</span><span class="op">(</span><span class="va">pa</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mcm62.1</span> <span class="op">=</span> <span class="fu">process_mcmicro</span><span class="op">(</span><span class="va">pa</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> + /Users/vincentcarey/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0/bin/conda create --yes --prefix /Users/vincentcarey/Library/Caches/org.R-project.R/R/basilisk/1.20.0/zellkonverter/1.18.0/zellkonverterAnnDataEnv-0.11.4 'python=3.13.2' --quiet -c conda-forge --override-channels</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> + /Users/vincentcarey/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0/bin/conda install --yes --prefix /Users/vincentcarey/Library/Caches/org.R-project.R/R/basilisk/1.20.0/zellkonverter/1.18.0/zellkonverterAnnDataEnv-0.11.4 'python=3.13.2' -c conda-forge --override-channels</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> + /Users/vincentcarey/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0/bin/conda install --yes --prefix /Users/vincentcarey/Library/Caches/org.R-project.R/R/basilisk/1.20.0/zellkonverter/1.18.0/zellkonverterAnnDataEnv-0.11.4 -c conda-forge 'python=3.13.2' 'anndata=0.11.4' 'h5py=3.13.0' 'hdf5=1.14.3' 'natsort=8.4.0' 'numpy=2.2.4' 'packaging=24.2' 'pandas=2.2.3' 'python=3.13.2' 'scipy=1.15.2' --override-channels</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> findSpatialNeighbors</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> runUnivariate moran.plot</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> runUnivariate localG</span>
 <span class="r-in"><span><span class="va">features_use</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NCAM"</span>, <span class="st">"FOXP3"</span>, <span class="st">"CD8A"</span>, <span class="st">"LDH"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">Voyager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotLocalResult.html" class="external-link">plotLocalResult</a></span><span class="op">(</span><span class="va">mcm53.1</span>, <span class="st">"localG"</span>, features <span class="op">=</span> <span class="va">features_use</span>,</span></span>
+<span class="r-in"><span><span class="fu">Voyager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotLocalResult.html" class="external-link">plotLocalResult</a></span><span class="op">(</span><span class="va">mcm62.1</span>, <span class="st">"localG"</span>, features <span class="op">=</span> <span class="va">features_use</span>,</span></span>
 <span class="r-in"><span>                colGeometryName <span class="op">=</span> <span class="st">"centroids"</span>, divergent <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>                diverge_center <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                diverge_center <span class="op">=</span> <span class="fl">0</span>, show_axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="process_mcmicro-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">mcm53.1b</span> <span class="op">=</span> <span class="fu">process_mcmicro</span><span class="op">(</span><span class="va">pa</span>, spneigh_parms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"knearneigh"</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mcm62.1b</span> <span class="op">=</span> <span class="fu">process_mcmicro</span><span class="op">(</span><span class="va">pa</span>, spneigh_parms<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>method<span class="op">=</span><span class="st">"knearneigh"</span>, k<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> findSpatialNeighbors</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> runUnivariate moran.plot</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> runUnivariate localG</span>
-<span class="r-in"><span><span class="fu">Voyager</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotColGraph.html" class="external-link">plotColGraph</a></span><span class="op">(</span><span class="va">mcm53.1b</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Voyager</span><span class="fu">:::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotColGraph.html" class="external-link">plotColGraph</a></span><span class="op">(</span><span class="va">mcm62.1b</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="process_mcmicro-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Voyager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotLocalResult.html" class="external-link">plotLocalResult</a></span><span class="op">(</span><span class="va">mcm53.1b</span>, <span class="st">"localG"</span>, features <span class="op">=</span> <span class="va">features_use</span>,</span></span>
+<span class="r-in"><span><span class="fu">Voyager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Voyager/man/plotLocalResult.html" class="external-link">plotLocalResult</a></span><span class="op">(</span><span class="va">mcm62.1b</span>, <span class="st">"localG"</span>, features <span class="op">=</span> <span class="va">features_use</span>,</span></span>
 <span class="r-in"><span>                colGeometryName <span class="op">=</span> <span class="st">"centroids"</span>, divergent <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                diverge_center <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="process_mcmicro-3.png" alt="" width="700" height="433"></span>
@@ -122,7 +125,7 @@ spneigh_parms setting is `list(method='knearneigh', k=4)`.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>

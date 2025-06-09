@@ -1,6 +1,6 @@
 Package: GBCC.mcm
 Title: MCMICRO analysis examples for GBCC 2025
-Version: 0.0.6
+Version: 0.0.8
 Authors@R:
     person(given = "Vince",
            family = "Carey",
@@ -13,7 +13,7 @@ Description: Use Bioconductor spatial omics methods with MCMICRO experients.
 Depends: R (>= 4.3), utils
 Suggests: knitr, BiocStyle, testthat, rmarkdown, alabaster.sfe, alabaster.base
 Imports: SpatialFeatureExperiment, Voyager, SpatialExperiment, zellkonverter,
-	SummarizedExperiment, BiocParallel, methods, BiocFileCache
+	SummarizedExperiment, BiocParallel, methods, BiocFileCache, shiny
 License: Artistic-2.0
 VignetteBuilder: knitr
 biocViews: Infrastructure
