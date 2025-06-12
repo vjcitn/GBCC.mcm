@@ -36,16 +36,16 @@ function, we compute a `colGraph` component, which assumes MARGIN value is 2.  A
 spneigh_parms setting is `list(method='knearneigh', k=4)`.
 }
 \examples{
-pa = get_mcm_path("m62.1")
+pa = get_mcm_path("A3")
 # by default, moran.plot and localG type univariate analyses are conducted
-mcm62.1 = process_mcmicro(pa)
-features_use = c("NCAM", "FOXP3", "CD8A", "LDH")
-Voyager::plotLocalResult(mcm62.1, "localG", features = features_use,
+A3 = process_mcmicro(pa)
+features_use = c("panCK", "CD45", "Ecad", "HLAA")
+Voyager::plotLocalResult(A3, "localG", features = features_use,
                 colGeometryName = "centroids", divergent = TRUE,
                 diverge_center = 0, show_axes=TRUE)
 mcm62.1b = process_mcmicro(pa, spneigh_parms=list(method="knearneigh", k=3))
-Voyager:::plotColGraph(mcm62.1b)
-Voyager::plotLocalResult(mcm62.1b, "localG", features = features_use,
+Voyager:::plotColGraph(A3)
+Voyager::plotLocalResult(A3, "localG", features = features_use,
                 colGeometryName = "centroids", divergent = TRUE,
                 diverge_center = 0)
 }

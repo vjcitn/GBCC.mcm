@@ -4,11 +4,15 @@
 \alias{get_mcm_path}
 \title{get path to mcmicro h5ad in package}
 \usage{
-get_mcm_path(tag = "m62.1")
+get_mcm_path(tag = "A4")
 }
 \arguments{
-\item{tag}{character(1) one of m62.1, ..., m62.4, m62.1}
+\item{tag}{character(1) one of A3, A4, B3, B4}
 }
 \description{
 get path to mcmicro h5ad in package
+}
+\note{
+A3 = Triple Negative Breast Cancer; A4 = Luminal B HER2+ Breast Cancer; 
+B3 = Luminal B HER- Breast Cancer; B4 = normal jejunum
 }
