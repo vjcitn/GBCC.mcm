@@ -46,6 +46,7 @@ browseOne = function(input_processed, targets = targets_june()) {
      ),
      tabPanel("about",
       textOutput("iniabout"),
+      textOutput("aboutsamp"),
       helpText("sources at github.com/vjcitn/GBCC.mcm"),
       verbatimTextOutput("cursfe"),
       helpText("Session information:"),
@@ -78,6 +79,9 @@ browseOne = function(input_processed, targets = targets_june()) {
   SpatialFeatureExperiment instances; some statistical computations were performed
   in advance and bound to the instances for viewing with this app.", packageVersion("GBCC.mcm"))
    )
+   output$aboutsamp = renderText(
+"Samples are from a tissue microarray and are imaged with Cyclic Immunofluorescence
+A3 = Triple Negative Breast Cancer; A4 = Luminal B HER2+ Breast Cancer; B3 = Luminal B HER- Breast Cancer; B4 = normal jejunum")
   
    output$simple = renderPlot({
    ##  cur = readObject(input$samples)
